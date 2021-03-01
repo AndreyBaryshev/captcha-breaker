@@ -53,7 +53,7 @@ Now, enjoy your war :fire::fire::fire: :stuck_out_tongue_winking_eye::stuck_out_
 
 #### Python
 ```
-$ python src/predict --fname YOUR_IMAGE_PATH_or_URL
+$ PYTHONHTTPSVERIFY=0 python -W ignore src/predict.py --fname https://images-na.ssl-images-amazon.com/captcha/cucusdhr/Captcha_pwtdzhrire.jpg
 ```
 
 Sample output:

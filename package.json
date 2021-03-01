@@ -4,7 +4,7 @@
   "description": "Breaking Captcha with Tensorflow",
   "main": "src/predict.js",
   "dependencies": {
-    "python-shell": "^0.5.0"
+    "python-shell": "0.5.0"
   },
   "devDependencies": {},
   "scripts": {

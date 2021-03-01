@@ -1,14 +1,24 @@
-const PythonShell = require('python-shell')
+const PythonShell = require('python-shell') ;
 
-const PY_SCRIPT = 'src/predict.py'
-
-module.exports = image_path => (new Promise((resolve, reject) => {
+module.exports = async (image_path) =>{
+  process.env.PYTHONHTTPSVERIFY=0;
   let opts = { }
   if (image_path) {
     opts.args = ['--fname', image_path]
   }
-  PythonShell.run(PY_SCRIPT, opts, (err, results) => {
-    if (err) return reject(err)
-    resolve(results)
+  let pyshell = new PythonShell(`src/predict.py`, opts );
+  const result = new Promise(resolve =>{
+    pyshell.on('message',  (message)=> {
+      if (message.includes('RESULT')) {
+        const [,captchaText] = message.split('-');
+        resolve(captchaText);
+      }
+    });
   })
-}))
+  pyshell.on('error', function (message) {console.log('message', message); });
+  const timeout = new Promise((resolve) => setTimeout(()=>resolve(null), 15000))
+  return Promise.race([result, timeout]);
+}
+
+
+

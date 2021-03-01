@@ -53,7 +53,8 @@ def main(argv):
             probs.append(prob)
     print('Captcha: `{}` with confident: `{:.3f}%`'.format(
              content, 100*sum(probs)/len(probs)))
-    print(content)
+    result='RESULT-' + content
+    print(result)
 
 if __name__ == '__main__':
     tf.app.run(main)
