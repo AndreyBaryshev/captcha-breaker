@@ -6,7 +6,7 @@ module.exports = async (image_path) =>{
   if (image_path) {
     opts.args = ['--fname', image_path]
   }
-  let pyshell = new PythonShell(`src/predict.py`, opts );
+  let pyshell = new PythonShell(`node_modules/captcha-breaker/src/predict.py`, opts );
   const result = new Promise(resolve =>{
     pyshell.on('message',  (message)=> {
       if (message.includes('RESULT')) {
@@ -15,7 +15,7 @@ module.exports = async (image_path) =>{
       }
     });
   })
-  pyshell.on('error', function (message) {console.log('message', message); });
+  pyshell.on('error', function (message) {});
   const timeout = new Promise((resolve) => setTimeout(()=>resolve(null), 15000))
   return Promise.race([result, timeout]);
 }
