@@ -53,6 +53,8 @@ def main(argv):
             probs.append(prob)
     print('Captcha: `{}` with confident: `{:.3f}%`'.format(
              content, 100*sum(probs)/len(probs)))
+    accuracy=str(round(100*sum(probs)/len(probs),2))
+    print('ACCURACY-' + accuracy)
     result='RESULT-' + content
     print(result)
 
