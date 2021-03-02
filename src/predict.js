@@ -6,10 +6,10 @@ module.exports = async (image_path) =>{
   if (image_path) {
     opts.args = ['--fname', image_path]
   }
-  let pyshell = new PythonShell(`src/predict.py`, opts );
+  let pythonShell = new PythonShell(`node_modules/captcha-breaker/src/predict.py`, opts );
 
   const resultPromise = new Promise(resolve =>{
-    pyshell.on('message',  (message)=> {
+    pythonShell.on('message',  (message)=> {
       console.log(message);
       if (message.includes('RESULT')) {
         const [,captchaText] = message.split('-');
@@ -19,10 +19,10 @@ module.exports = async (image_path) =>{
   })
 
   let errorLog = [];
-  pyshell.on('error', function (message) {errorLog.push(message)});
+  pythonShell.on('error', function (message) {errorLog.push(message)});
 
   const endPromise = new Promise (resolve=>{
-      pyshell.end( (err, code ) => {
+      pythonShell.end( (err, code ) => {
         if (code !== 0) {
           errorLog.forEach(str=> console.log(str));
           resolve(null);

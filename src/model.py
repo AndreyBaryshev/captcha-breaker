@@ -1,7 +1,7 @@
 from __future__ import print_function, absolute_import, division
 import tensorflow as tf
 
-MODEL_LOG_DIR = 'checkpoint'
+MODEL_LOG_DIR = 'node_modules/captcha-breaker/checkpoint'
 
 def cnn_model_fn(features, labels, mode):
   """Model function for CNN."""
